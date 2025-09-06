@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/prescriptions}" th:object="${prescription}" method="post">
+    <input type="date" th:field="*{prescriptionDate}" required>
+    <input type="text" th:field="*{patientName}" placeholder="Patient Name" required>
+    <input type="number" th:field="*{patientAge}" placeholder="Age" required>
+    <select th:field="*{patientGender}" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+    <textarea th:field="*{diagnosis}" placeholder="Diagnosis"></textarea>
+    <textarea th:field="*{medicines}" placeholder="Medicines"></textarea>
+    <input type="date" th:field="*{nextVisitDate}">
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>
