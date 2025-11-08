@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f6fc;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        a.button:hover {
+            background-color: #357ABD;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e1f0ff;
+        }
+
+        td a {
+            margin-right: 10px;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: right;
+                padding-right: 50%;
+                position: relative;
+            }
+
+            th::after {
+                content: ":";
+                position: absolute;
+                right: 15px;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                margin-bottom: 10px;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            td a {
+                display: inline-block;
+                margin-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Prescription List</h2>
+<a class="button" href="/prescriptions/new">+ New Prescription</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Patient</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${prescriptions}">
+        <td th:text="${p.prescriptionDate}" data-label="Date"></td>
+        <td th:text="${p.patientName}" data-label="Patient"></td>
+        <td th:text="${p.patientAge}" data-label="Age"></td>
+        <td th:text="${p.patientGender}" data-label="Gender"></td>
+        <td data-label="Actions">
+            <a th:href="@{'/prescriptions/edit/' + ${p.id}}">Edit</a>
+            <a th:href="@{'/prescriptions/delete/' + ${p.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
